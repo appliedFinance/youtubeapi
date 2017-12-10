@@ -32,12 +32,15 @@ function getDataFromAPI( searchTerm, callback ) {
 }
 
 function renderResultsList(item,index) {
+	// the thumbnail
 	const thumbnail = item.snippet.thumbnails.default.url;
-	const videoUrl = "http://www.youtube.com";
+	// url to video
+	const videoUrl = `http://www.youtube.com/watch?v=${item.id.videoId}`;
+
 	return `<div class="result-box">
-<p>INDEX= ${index}</p>
-<p class="description-box">DESCRIPTION= ${item.snippet.description}</p>
-<a class="thumbnail" href="${videoUrl}"><img src="${thumbnail}" alt=""/></a>
+					<p>INDEX= ${index}</p>
+					<p class="description-box">DESCRIPTION= ${item.snippet.description}</p>
+					<a class="thumbnail" href="${videoUrl}"><img src="${thumbnail}" alt=""/></a>
 		</div>`;
 }
 
