@@ -31,17 +31,20 @@ function getDataFromAPI( searchTerm, callback ) {
 	//$.getJSON( URL, query, callback );
 }
 
-function renderResultsList(item) {
+function renderResultsList(item,index) {
+	const thumbnail = item.snippet.thumbnails.default.url;
+	const videoUrl = "http://www.youtube.com";
 	return `<div class="result-box">
-<p>This is a test.</p>
-
+<p>INDEX= ${index}</p>
+<p class="description-box">DESCRIPTION= ${item.snippet.description}</p>
+<a class="thumbnail" href="${videoUrl}"><img src="${thumbnail}" alt=""/></a>
 		</div>`;
 }
 
 //  displayResults();
 function displayResults(data) {
 	say(data.items);
-	const resultsList = data.items.map( (item, index) => renderResultsList(item) );
+	const resultsList = data.items.map( (item, index) => renderResultsList(item,index) );
 	//$('.js-search-results').text( JSON.stringify(data) );
 	$('.js-search-results').html(resultsList);
 }
