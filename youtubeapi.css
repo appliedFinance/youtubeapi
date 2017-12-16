@@ -7,7 +7,7 @@ body {
   background-color: #7991b7;
 }
 
-.search-box {
+fieldset {
   padding: 20px;
   width: 95%;
   border: 1px solid red;

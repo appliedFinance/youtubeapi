@@ -12,16 +12,16 @@
 	</head>
 	<body>
 		<main role="main">
-		<header role="banner"><h1>Search on YouTube!</h1></header>
-		
-		<section class="search-box">
+		<fieldset>
+			<legend> Search on YouTube! </legend>
 			<form action="#" class="js-search-form">
 				<label for="query"></label>
 				<input type="text" class="js-query">
-				<button type="submit">Search</button>
+				<button type="submit" class="search-button">Search</button>
+				<button type="submit" class="clear-button">Clear</button>
 			</form>
-		</section> 
-		
+		</fieldset>
+
 		<section name="Results">	
 			<h2 role="banner">Results</h2>
 			<div class="js-search-results"></div>

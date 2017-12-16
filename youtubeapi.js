@@ -37,6 +37,7 @@ function renderResultsList(item,index) {
 	// url to video
 	const videoUrl = `http://www.youtube.com/watch?v=${item.id.videoId}`;
 
+
 	return `<div class="result-box">
 					<p>INDEX= ${index}</p>
 					<p class="description-box">DESCRIPTION= ${item.snippet.description}</p>
@@ -44,14 +45,15 @@ function renderResultsList(item,index) {
 		</div>`;
 }
 
+
 //  displayResults();
 function displayResults(data) {
-	say(data.items);
+	say(data);
+	//say(data.items);
 	const resultsList = data.items.map( (item, index) => renderResultsList(item,index) );
 	//$('.js-search-results').text( JSON.stringify(data) );
 	$('.js-search-results').html(resultsList);
 }
-
 
 
 // event Listeners
@@ -61,10 +63,14 @@ function displayResults(data) {
 //          getDataFromAPI(query, displayResults); 
 
 function watchSubmit() {
-	$('.js-search-form').submit( event => {
+	$('.js-search-form').on("click",".search-button", event => {
 		event.preventDefault();
 		let s = $(this).find('.js-query').val();
 		getDataFromAPI(s, displayResults);	
+	});
+	$('.js-search-form').on("click",".clear-button", event => {
+		event.preventDefault();
+		$(this).find('.js-query').val("");
 	});
 
 }
