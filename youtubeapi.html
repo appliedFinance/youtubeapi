@@ -2,31 +2,33 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>YouTube API example</title>
-		<script
-		  src="https://code.jquery.com/jquery-3.2.1.min.js"
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"
 		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-	 	  crossorigin="anonymous"></script>
+	     crossorigin="anonymous"></script>
 		<link href="youtubeapi.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
 		<main role="main">
-		<fieldset>
-			<legend> Search on YouTube! </legend>
-			<form action="#" class="js-search-form">
-				<label for="query"></label>
-				<input type="text" class="js-query">
-				<button type="submit" class="search-button">Search</button>
-				<button type="submit" class="clear-button">Clear</button>
-			</form>
-		</fieldset>
 
-		<section name="Results">	
-			<h2 role="banner">Results</h2>
-			<div class="js-search-results"></div>
+		<section name="SearchBox"><center>
+			<fieldset class="center">
+				<legend class="legend-banner">Search on YouTube!</legend>
+				<form action="#" class="js-search-form">
+					<label for="query"></label>
+					<input type="text" class="js-query">
+					<button type="submit" class="search-button">Search</button>
+					<button type="submit" class="clear-button">Clear</button>
+				</form>
+			</fieldset></center>
 		</section>
-		
+
+			<section name="Results">	
+				<h2 role="banner" class="results-banner"></h2>
+				<div class="js-search-results"></div>
+			</section>
+
 		</main>
 		<script src="youtubeapi.js"></script>
 	</body>

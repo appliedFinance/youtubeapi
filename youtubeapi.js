@@ -15,11 +15,10 @@ function getDataFromAPI( searchTerm, callback ) {
 	// build the parameters object
 	const s = {
 		'q': searchTerm,
-		'part': "snippet",
-		'maxResults': 25,
+		'part': "snippet", 
+		'maxResults': 30,
 		'key': "AIzaSyCjpmqpOwcOf--_qJ4Ks08ZEc-PosxUxTg"
 	};
-	say(s);
 	const settings = {
 		'url': YOUTUBE_URL,
 		'data': s,
@@ -32,17 +31,42 @@ function getDataFromAPI( searchTerm, callback ) {
 }
 
 function renderResultsList(item,index) {
-	// the thumbnail
+	// Thumbnail
 	const thumbnail = item.snippet.thumbnails.default.url;
-	// url to video
+	// Url to a video
 	const videoUrl = `http://www.youtube.com/watch?v=${item.id.videoId}`;
+	// Title
+	const vidTitle = item.snippet.title; 
+	// Description
+	const description = item.snippet.description;
+	// ChannelTitle
+	const channelTitle = item.snippet.channelTitle;
+	const channelID = item.snippet.channelId;
+	const channelUrl = `https://www.youtube.com/channel/${channelID}`; 
+	// Pub date
+	const fullDate = item.snippet.publishedAt;
+	let re = /^(\d+)\-/;
+	let year = fullDate.match(re)[1];
 
+	// build the result Html-String
+	let s = `<div class="result-box">
+					<table>
+						<tr>
+							<td><a class="thumbnail" href="${videoUrl}"><img src="${thumbnail}" alt=""/></a></td><td class="title">\"${vidTitle}\"</a></td>
+						</tr>
+						<td class="center">${year}</td><td><p class="description">${description}</p></td>
 
-	return `<div class="result-box">
-					<p>INDEX= ${index}</p>
-					<p class="description-box">DESCRIPTION= ${item.snippet.description}</p>
-					<a class="thumbnail" href="${videoUrl}"><img src="${thumbnail}" alt=""/></a>
+					</table>
+					<p> </p>
+					View Channel: <a href="${channelUrl}">${channelTitle}</a>
 		</div>`;
+
+	return s;
+//	return `<div class="result-box">
+//					<p>INDEX= ${index}</p>
+//					<p class="description-box">DESCRIPTION= ${item.snippet.description}</p>
+//					<a class="thumbnail" href="${videoUrl}"><img src="${thumbnail}" alt=""/></a>
+//		</div>`;
 }
 
 
@@ -57,17 +81,16 @@ function displayResults(data) {
 
 
 // event Listeners
-//   .js-search
-//   1.  build my "search json object"
-//   2.  Get it.
-//          getDataFromAPI(query, displayResults); 
-
 function watchSubmit() {
+	// Search Button + Form Submit
 	$('.js-search-form').on("click",".search-button", event => {
 		event.preventDefault();
 		let s = $(this).find('.js-query').val();
+		// API Call
 		getDataFromAPI(s, displayResults);	
 	});
+
+	// Clear Button
 	$('.js-search-form').on("click",".clear-button", event => {
 		event.preventDefault();
 		$(this).find('.js-query').val("");
