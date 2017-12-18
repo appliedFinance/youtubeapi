@@ -67,4 +67,15 @@ a:hover {
 	text-align: center;
 }
 
+.no-display {
+	display: none;
+}
 
+.lightbox {
+	position: absolute;
+	top: 10;
+	left: 500;
+	width: 460;
+	height: 360;
+	background-color: lightblue;
+}

@@ -10,6 +10,7 @@ function say(s) { console.log(s); }
 // www.googleapis.com/youtube/v3/search?q=surfing&maxResults=25&part=snippet&key={YOUR_API_KEY}
 //
 const YOUTUBE_URL = "https://www.googleapis.com/youtube/v3/search";
+const videos = [];
 
 function getDataFromAPI( searchTerm, callback ) {
 	// build the parameters object
@@ -35,38 +36,38 @@ function renderResultsList(item,index) {
 	const thumbnail = item.snippet.thumbnails.default.url;
 	// Url to a video
 	const videoUrl = `http://www.youtube.com/watch?v=${item.id.videoId}`;
-	// Title
+	videos[index] = videoUrl;
+	// Video Title
 	const vidTitle = item.snippet.title; 
 	// Description
 	const description = item.snippet.description;
-	// ChannelTitle
+	// Channel Info
 	const channelTitle = item.snippet.channelTitle;
 	const channelID = item.snippet.channelId;
 	const channelUrl = `https://www.youtube.com/channel/${channelID}`; 
 	// Pub date
-	const fullDate = item.snippet.publishedAt;
-	let re = /^(\d+)\-/;
-	let year = fullDate.match(re)[1];
-
+	const year = item.snippet.publishedAt.match(/^(\d+)\-/)[1];
+	
 	// build the result Html-String
-	let s = `<div class="result-box">
-					<table>
-						<tr>
-							<td><a class="thumbnail" href="${videoUrl}"><img src="${thumbnail}" alt=""/></a></td><td class="title">\"${vidTitle}\"</a></td>
-						</tr>
-						<td class="center">${year}</td><td><p class="description">${description}</p></td>
-
-					</table>
-					<p> </p>
-					View Channel: <a href="${channelUrl}">${channelTitle}</a>
-		</div>`;
+	let s = `
+		<div class="result-box">
+			<table>
+				<tr>
+					<td><div class="thumbnail" data-num="${index}"><img src="${thumbnail}" alt="missing..."/>
+					</div></td><td class="title">"${vidTitle}"</a></td>
+				</tr>
+				<td class="center">${year}</td><td><p class="description">${description}</p></td>
+			</table>
+			View Channel: <a href="${channelUrl}">${channelTitle}</a>
+		</div>
+		`;
 
 	return s;
-//	return `<div class="result-box">
-//					<p>INDEX= ${index}</p>
-//					<p class="description-box">DESCRIPTION= ${item.snippet.description}</p>
-//					<a class="thumbnail" href="${videoUrl}"><img src="${thumbnail}" alt=""/></a>
-//		</div>`;
+	//	return `<div class="result-box">
+	//					<p>INDEX= ${index}</p>
+	//					<p class="description-box">DESCRIPTION= ${item.snippet.description}</p>
+	//					<a class="thumbnail" href="${videoUrl}"><img src="${thumbnail}" alt=""/></a>
+	//		</div>`;
 }
 
 
@@ -83,21 +84,38 @@ function displayResults(data) {
 // event Listeners
 function watchSubmit() {
 	// Search Button + Form Submit
-	$('.js-search-form').on("click",".search-button", event => {
+	$('.js-search-form').on("submit", event => {
 		event.preventDefault();
-		let s = $(this).find('.js-query').val();
+		let s = $(event.currentTarget).find('.js-query').val();
 		// API Call
 		getDataFromAPI(s, displayResults);	
+		say("Searching for: " + s);
 	});
 
 	// Clear Button
 	$('.js-search-form').on("click",".clear-button", event => {
 		event.preventDefault();
-		$(this).find('.js-query').val("");
+		//$(event.currentTarget).find('.js-query').val("");
+		say("Clear.");
 	});
 
+	// Light Box 
+	$('.js-search-results').on("click", ".thumbnail", event => {
+		$('#lightbox').removeClass('no-display');
+		say("SHOW LIGHTBOX");
+	});
+
+	$('.js-search-results').on("click", ".lightbox", event => {
+		$(event.currentTarget).addClass('no-display');
+		say("HIDE LIGHTBOX");
+	});
 }
 
 $(watchSubmit);
 
 
+		//<iframe width="560" height="315" src="https://www.youtube.com/embed/0g9SlVdv1PY" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+		//	<video width="420" height="240" controls>
+		//		<source src="${videoUrl}" type="video/mp4">
+		//		Your browser does not support the video tag.
+		//	</video>
