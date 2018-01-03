@@ -47,40 +47,29 @@ function renderResultsList(item,index) {
 	// build the result Html-String
 	let s = `
 		<div class="result-box">
-
 			<div class="row">	
-
 				<div class="col-6">
 					<a href="#" class="thumbnail" data-num="${index}" data-vid="${item.id.videoId}"><img src="${thumbnail}" alt="Watch ${vidTitle}"/></a>
 				</div>
-
 				<div class="col-6">
-				
 					<div class="row">
 						<div class"col-12">
 							<h3 aria-label="goto video page">${vidTitle}</h3>
 					   	<p class="description">${description}</p>
 						</div>
 					</div>
-
 				</div>
-
 			</div>
-
 			<div class="row">	
-
 				<div class="col-121212121212121212121212">
 					<h4 aria-label="year">${year}</h4>
 					<label id="channel-${index}">View Channel: </label> <a aria-labeled-by="channel-${index}" href="${channelUrl}">${channelTitle}</a>
 				</div>
-
 			</div>
-
 		</div>
 	`;
 
 	return s;
-
 }
 
 
