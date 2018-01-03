@@ -36,14 +36,26 @@ button {
 	background-color: #a3bce2;
 }
 
+.result-box h3, .result-box h4 {
+	margin: 0;
+}
+
+.result-col-3 {
+	padding-bottom: 150px; 
+	margin-bottom: -150px;
+}
+
 .description-box {
 	font-style: italic;
 }
 
 .thumbnail {
-  display: inline-block;
   cursor: pointer;
-  height: 60px;
+}
+
+.thumbnail img {
+	max-width: 100%;
+	height: auto;
 }
 
 .title {
@@ -56,11 +68,7 @@ button {
 }
 
 a:hover {
-  box-shadow: 5px 5px 5px gray;
-}
-
-.thumbnail img {
-  max-height: 100%;
+  box-shadow: 5px 5px 5px black;
 }
 
 .center {

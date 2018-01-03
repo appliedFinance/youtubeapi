@@ -30,7 +30,7 @@ function getDataFromAPI( searchTerm, callback ) {
 
 function renderResultsList(item,index) {
 	// Thumbnail
-	const thumbnail = item.snippet.thumbnails.default.url;
+	const thumbnail = item.snippet.thumbnails.medium.url;
 	// Url to a video
 	const videoUrl = `http://www.youtube.com/watch?v=${item.id.videoId}`;
 	// Video Title
@@ -41,25 +41,46 @@ function renderResultsList(item,index) {
 	const channelTitle = item.snippet.channelTitle;
 	const channelID = item.snippet.channelId;
 	const channelUrl = `https://www.youtube.com/channel/${channelID}`; 
-	// Pub date
-	const year = item.snippet.publishedAt.match(/^(\d+)\-/)[1];
-	
+		// Pub date
+		const year = item.snippet.publishedAt.match(/^(\d+)\-/)[1];
+
 	// build the result Html-String
 	let s = `
 		<div class="result-box">
-			<table>
-				<tr>
-					<td><a href="#" class="thumbnail" data-num="${index}" data-vid="${item.id.videoId}"><img src="${thumbnail}" alt="Watch ${vidTitle}"/></a>
-					</div></td><td class="title">"${vidTitle}"</a></td>
-				</tr>
-				<td class="center">${year}</td><td><p class="description">${description}</p></td>
-			</table>
-			<label id="channel-${index}">View Channel: </label> <a aria-labeled-by="channel-${index}" href="${channelUrl}">${channelTitle}</a>
+
+			<div class="row">	
+
+				<div class="col-6">
+					<a href="#" class="thumbnail" data-num="${index}" data-vid="${item.id.videoId}"><img src="${thumbnail}" alt="Watch ${vidTitle}"/></a>
+				</div>
+
+				<div class="col-6">
+				
+					<div class="row">
+						<div class"col-12">
+							<h3 aria-label="goto video page">${vidTitle}</h3>
+					   	<p class="description">${description}</p>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="row">	
+
+				<div class="col-121212121212121212121212">
+					<h4 aria-label="year">${year}</h4>
+					<label id="channel-${index}">View Channel: </label> <a aria-labeled-by="channel-${index}" href="${channelUrl}">${channelTitle}</a>
+				</div>
+
+			</div>
+
 		</div>
-		`;
+	`;
 
 	return s;
-	//INDEX= ${index}
+
 }
 
 
@@ -73,9 +94,9 @@ function displayResults(data) {
 }
 
 function showLightbox(vid) {
-		say("SHOW LIGHTBOX: " + vid);
+	say("SHOW LIGHTBOX: " + vid);
 
-		let s = "<p>Click to close</p><div class='video-box'><iframe width='560' height='315' src='https://www.youtube.com/embed/" + vid + "' frameborder='0' gesture='media' allow='encrypted-media' allowfullscreen></iframe></div>";
+	let s = "<p>Click to close</p><div class='video-box'><iframe width='560' height='315' src='https://www.youtube.com/embed/" + vid + "' frameborder='0' gesture='media' allow='encrypted-media' allowfullscreen></iframe></div>";
 	$('#lightbox').html(s);
 }
 
