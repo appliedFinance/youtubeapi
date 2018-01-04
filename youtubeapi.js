@@ -61,7 +61,7 @@ function renderResultsList(item,index) {
 				</div>
 			</div>
 			<div class="row">	
-				<div class="col-121212121212121212121212">
+				<div class="col-12">
 					<h4 aria-label="year">${year}</h4>
 					<label id="channel-${index}">View Channel: </label> <a aria-labeled-by="channel-${index}" href="${channelUrl}">${channelTitle}</a>
 				</div>
